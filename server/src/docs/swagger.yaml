@@ -1,0 +1,993 @@
+openapi: 3.0.3
+info:
+  title: Outdoor Clothing API Specification
+  version: '114'
+  description: API documentation for the Outdoor Clothing bounded context.
+servers:
+  - url: /api/v1
+    description: Development Server
+tags:
+  - name: OutdoorClothing
+    description: Operations related to the OutdoorClothing bounded context.
+paths:
+  /create-design:
+    post:
+      summary: Create Design
+      description: Executes the "Create Design" command. ...
+      operationId: createDesign
+      tags:
+        - OutdoorClothing
+      responses:
+        '200':
+          description: 'OK: The resource was updated successfully.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DesignSpec'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDesignRequest'
+  /create-production-order:
+    post:
+      summary: Create Production Order
+      description: Executes the "Create Production Order" command. ...
+      operationId: createProductionOrder
+      tags:
+        - OutdoorClothing
+      responses:
+        '200':
+          description: 'OK: The resource was updated successfully.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductionOrder'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProductionOrderRequest'
+  /create-material-order:
+    post:
+      summary: Create Material Order
+      description: Executes the "Create Material Order" command. ...
+      operationId: createMaterialOrder
+      tags:
+        - OutdoorClothing
+      responses:
+        '200':
+          description: 'OK: The resource was updated successfully.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MaterialOrder'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMaterialOrderRequest'
+  /schedule-production:
+    post:
+      summary: Schedule Production
+      description: Executes the "Schedule Production" command. ...
+      operationId: scheduleProduction
+      tags:
+        - OutdoorClothing
+      responses:
+        '200':
+          description: 'OK: The resource was updated successfully.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductionSchedule'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleProductionRequest'
+  /start-production:
+    post:
+      summary: Start Production
+      description: Executes the "Start Production" command. ...
+      operationId: startProduction
+      tags:
+        - OutdoorClothing
+      responses:
+        '200':
+          description: 'OK: The resource was updated successfully.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductionProcess'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartProductionRequest'
+  /complete-production:
+    post:
+      summary: Complete Production
+      description: Executes the "Complete Production" command. ...
+      operationId: completeProduction
+      tags:
+        - OutdoorClothing
+      responses:
+        '200':
+          description: 'OK: The resource was updated successfully.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductionProcess'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompleteProductionRequest'
+  /inspect-product:
+    post:
+      summary: Inspect Product
+      description: Executes the "Inspect Product" command. ...
+      operationId: inspectProduct
+      tags:
+        - OutdoorClothing
+      responses:
+        '200':
+          description: 'OK: The resource was updated successfully.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinishedProduct'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InspectProductRequest'
+  /package-clothing:
+    post:
+      summary: Package Clothing
+      description: Executes the "Package Clothing" command. ...
+      operationId: packageClothing
+      tags:
+        - OutdoorClothing
+      responses:
+        '200':
+          description: 'OK: The resource was updated successfully.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PackagedItem'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PackageClothingRequest'
+  /ship-clothing:
+    post:
+      summary: Ship Clothing
+      description: Executes the "Ship Clothing" command. ...
+      operationId: shipClothing
+      tags:
+        - OutdoorClothing
+      responses:
+        '200':
+          description: 'OK: The resource was updated successfully.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shipment'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShipClothingRequest'
+  /fetch-design-brief:
+    get:
+      summary: Fetch Design Brief
+      description: Retrieves data based on the "Fetch Design Brief" query. This is a synchronous query operation.
+      operationId: fetchDesignBrief
+      tags:
+        - OutdoorClothing
+      responses:
+        '200':
+          description: Successful retrieval of data.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DesignSpec'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /fetch-order-requirements:
+    get:
+      summary: Fetch Order Requirements
+      description: Retrieves data based on the "Fetch Order Requirements" query. This is a synchronous query operation.
+      operationId: fetchOrderRequirements
+      tags:
+        - OutdoorClothing
+      responses:
+        '200':
+          description: Successful retrieval of data.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductionOrder'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /fetch-inventory-levels:
+    get:
+      summary: Fetch Inventory Levels
+      description: Retrieves data based on the "Fetch Inventory Levels" query. This is a synchronous query operation.
+      operationId: fetchInventoryLevels
+      tags:
+        - OutdoorClothing
+      responses:
+        '200':
+          description: Successful retrieval of data.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MaterialOrder'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /fetch-production-plan:
+    get:
+      summary: Fetch Production Plan
+      description: Retrieves data based on the "Fetch Production Plan" query. This is a synchronous query operation.
+      operationId: fetchProductionPlan
+      tags:
+        - OutdoorClothing
+      responses:
+        '200':
+          description: Successful retrieval of data.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductionSchedule'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /get-production-schedule:
+    get:
+      summary: Get Production Schedule
+      description: Retrieves data based on the "Get Production Schedule" query. This is a synchronous query operation.
+      operationId: getProductionSchedule
+      tags:
+        - OutdoorClothing
+      responses:
+        '200':
+          description: Successful retrieval of data.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductionProcess'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /get-work-status:
+    get:
+      summary: Get Work Status
+      description: Retrieves data based on the "Get Work Status" query. This is a synchronous query operation.
+      operationId: getWorkStatus
+      tags:
+        - OutdoorClothing
+      responses:
+        '200':
+          description: Successful retrieval of data.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductionProcess'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /fetch-production-quality:
+    get:
+      summary: Fetch Production Quality
+      description: Retrieves data based on the "Fetch Production Quality" query. This is a synchronous query operation.
+      operationId: fetchProductionQuality
+      tags:
+        - OutdoorClothing
+      responses:
+        '200':
+          description: Successful retrieval of data.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FinishedProduct'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /get-inspection-outcome:
+    get:
+      summary: Get Inspection Outcome
+      description: Retrieves data based on the "Get Inspection Outcome" query. This is a synchronous query operation.
+      operationId: getInspectionOutcome
+      tags:
+        - OutdoorClothing
+      responses:
+        '200':
+          description: Successful retrieval of data.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PackagedItem'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /fetch-packaging-status:
+    get:
+      summary: Fetch Packaging Status
+      description: Retrieves data based on the "Fetch Packaging Status" query. This is a synchronous query operation.
+      operationId: fetchPackagingStatus
+      tags:
+        - OutdoorClothing
+      responses:
+        '200':
+          description: Successful retrieval of data.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Shipment'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          example: An error occurred.
+    DesignSpec:
+      type: object
+      description: Represents a Design Spec in the system.
+      properties:
+        designSpecID:
+          type: string
+          description: The Design Spec ID of the Design Spec.
+          example: DS001
+        designTitle:
+          type: string
+          description: The Design Title of the Design Spec.
+          example: Sunset
+        designBrief:
+          type: string
+          description: The Design Brief of the Design Spec.
+          example: Brief1
+        styleGuidelines:
+          type: string
+          description: The Style Guidelines of the Design Spec.
+          example: Modern
+        materialType:
+          type: string
+          description: The Material Type of the Design Spec.
+          example: GoreTex
+        colorPreferences:
+          type: string
+          description: The Color Preferences of the Design Spec.
+          example: Blue
+        sketchUpload:
+          type: string
+          description: The Sketch Upload of the Design Spec.
+          example: sk1.jpg
+      required:
+        - designSpecID
+        - designTitle
+        - designBrief
+        - styleGuidelines
+        - materialType
+        - colorPreferences
+        - sketchUpload
+    ProductionOrder:
+      type: object
+      description: Represents a Production Order in the system.
+      properties:
+        orderNumber:
+          type: string
+          description: The Order Number of the Production Order.
+          example: PO001
+        productDesign:
+          type: string
+          description: The Product Design of the Production Order.
+          example: Design1
+        quantityRequired:
+          type: string
+          description: The Quantity Required of the Production Order.
+          example: '100'
+        dueDate:
+          type: string
+          description: The Due Date of the Production Order.
+          example: '2023-11-01'
+        factoryLocation:
+          type: string
+          description: The Factory Location of the Production Order.
+          example: FactoryA
+      required:
+        - orderNumber
+        - productDesign
+        - quantityRequired
+        - dueDate
+        - factoryLocation
+    MaterialOrder:
+      type: object
+      description: Represents a Material Order in the system.
+      properties:
+        pONumber:
+          type: string
+          description: The PO Number of the Material Order.
+          example: MO001
+        materialType:
+          type: string
+          description: The Material Type of the Material Order.
+          example: GoreTex
+        materialGrade:
+          type: string
+          description: The Material Grade of the Material Order.
+          example: A
+        quantity:
+          type: string
+          description: The Quantity of the Material Order.
+          example: '500'
+        supplierName:
+          type: string
+          description: The Supplier Name of the Material Order.
+          example: SuppA
+        deliveryDate:
+          type: string
+          description: The Delivery Date of the Material Order.
+          example: '2023-10-10'
+      required:
+        - pONumber
+        - materialType
+        - materialGrade
+        - quantity
+        - supplierName
+        - deliveryDate
+    ProductionSchedule:
+      type: object
+      description: Represents a Production Schedule in the system.
+      properties:
+        scheduleID:
+          type: string
+          description: The Schedule ID of the Production Schedule.
+          example: SCH001
+        startDate:
+          type: string
+          description: The Start Date of the Production Schedule.
+          example: '2023-09-01'
+        endDate:
+          type: string
+          description: The End Date of the Production Schedule.
+          example: '2023-09-05'
+        shiftDetails:
+          type: string
+          description: The Shift Details of the Production Schedule.
+          example: Morning
+        operatorId:
+          type: string
+          description: The Operator Id of the Production Schedule.
+          example: OPR001
+        productionLine:
+          type: string
+          description: The Production Line of the Production Schedule.
+          example: Line A
+      required:
+        - scheduleID
+        - startDate
+        - endDate
+        - shiftDetails
+        - operatorId
+        - productionLine
+    ProductionProcess:
+      type: object
+      description: Represents a Production Process in the system.
+      properties:
+        processID:
+          type: string
+          description: The Process ID of the Production Process.
+          example: PRC001
+        machineID:
+          type: string
+          description: The Machine ID of the Production Process.
+          example: M001
+        operatorName:
+          type: string
+          description: The Operator Name of the Production Process.
+          example: Alice
+        startTime:
+          type: string
+          description: The Start Time of the Production Process.
+          example: '08:00'
+        batchNo:
+          type: string
+          description: The Batch No of the Production Process.
+          example: B100
+        initialCount:
+          type: string
+          description: The Initial Count of the Production Process.
+          example: '100'
+        endTime:
+          type: string
+          description: The End Time of the Production Process.
+          example: '12:00'
+        totalUnits:
+          type: string
+          description: The Total Units of the Production Process.
+          example: '110'
+        defectsCount:
+          type: string
+          description: The Defects Count of the Production Process.
+          example: '2'
+        qualityReport:
+          type: string
+          description: The Quality Report of the Production Process.
+          example: Pass
+        operatorNote:
+          type: string
+          description: The Operator Note of the Production Process.
+          example: Good work
+      required:
+        - processID
+        - machineID
+        - operatorName
+        - startTime
+        - batchNo
+        - initialCount
+        - endTime
+        - totalUnits
+        - defectsCount
+        - qualityReport
+        - operatorNote
+    FinishedProduct:
+      type: object
+      description: Represents a Finished Product in the system.
+      properties:
+        finishedProdID:
+          type: string
+          description: The FinishedProd ID of the Finished Product.
+          example: FP001
+        inspectionDate:
+          type: string
+          description: The Inspection Date of the Finished Product.
+          example: '2023-09-06'
+        inspector:
+          type: string
+          description: The Inspector of the Finished Product.
+          example: InspA
+        batchNo:
+          type: string
+          description: The Batch No of the Finished Product.
+          example: B100
+        defectReport:
+          type: string
+          description: The Defect Report of the Finished Product.
+          example: None
+        scoreRating:
+          type: string
+          description: The Score Rating of the Finished Product.
+          example: '95'
+      required:
+        - finishedProdID
+        - inspectionDate
+        - inspector
+        - batchNo
+        - defectReport
+        - scoreRating
+    PackagedItem:
+      type: object
+      description: Represents a Packaged Item in the system.
+      properties:
+        packageID:
+          type: string
+          description: The Package ID of the Packaged Item.
+          example: PKG001
+        packagingDate:
+          type: string
+          description: The Packaging Date of the Packaged Item.
+          example: '2023-09-10'
+        boxType:
+          type: string
+          description: The Box Type of the Packaged Item.
+          example: BoxA
+        sealStatus:
+          type: string
+          description: The Seal Status of the Packaged Item.
+          example: Sealed
+        packagedQty:
+          type: string
+          description: The Packaged Qty of the Packaged Item.
+          example: '90'
+        comments:
+          type: string
+          description: The Comments of the Packaged Item.
+          example: None
+      required:
+        - packageID
+        - packagingDate
+        - boxType
+        - sealStatus
+        - packagedQty
+        - comments
+    Shipment:
+      type: object
+      description: Represents a Shipment in the system.
+      properties:
+        shipmentNo:
+          type: string
+          description: The Shipment No of the Shipment.
+          example: SHP001
+        shipDate:
+          type: string
+          description: The Ship Date of the Shipment.
+          example: '2023-09-15'
+        trackingNo:
+          type: string
+          description: The Tracking No of the Shipment.
+          example: TRK001
+        destAddress:
+          type: string
+          description: The Dest Address of the Shipment.
+          example: Addr A
+        shippingMode:
+          type: string
+          description: The Shipping Mode of the Shipment.
+          example: Air
+        carrierName:
+          type: string
+          description: The Carrier Name of the Shipment.
+          example: CarrierA
+      required:
+        - shipmentNo
+        - shipDate
+        - trackingNo
+        - destAddress
+        - shippingMode
+        - carrierName
+    CreateDesignRequest:
+      type: object
+      properties:
+        designTitle:
+          type: string
+          example: Sunset
+        designBrief:
+          type: string
+          example: Brief1
+        styleGuidelines:
+          type: string
+          example: Modern
+        materialType:
+          type: string
+          example: GoreTex
+        colorPreferences:
+          type: string
+          example: Blue
+        sketchUpload:
+          type: string
+          example: sk1.jpg
+      required:
+        - designTitle
+        - designBrief
+        - styleGuidelines
+        - materialType
+        - colorPreferences
+        - sketchUpload
+    CreateProductionOrderRequest:
+      type: object
+      properties:
+        orderNumber:
+          type: string
+          example: PO001
+        productDesign:
+          type: string
+          example: Design1
+        quantityRequired:
+          type: string
+          example: '100'
+        dueDate:
+          type: string
+          example: '2023-11-01'
+        factoryLocation:
+          type: string
+          example: FactoryA
+      required:
+        - orderNumber
+        - productDesign
+        - quantityRequired
+        - dueDate
+        - factoryLocation
+    CreateMaterialOrderRequest:
+      type: object
+      properties:
+        materialType:
+          type: string
+          example: GoreTex
+        materialGrade:
+          type: string
+          example: A
+        quantity:
+          type: string
+          example: '500'
+        supplierName:
+          type: string
+          example: SuppA
+        deliveryDate:
+          type: string
+          example: '2023-10-10'
+        pONumber:
+          type: string
+          example: MO001
+      required:
+        - materialType
+        - materialGrade
+        - quantity
+        - supplierName
+        - deliveryDate
+        - pONumber
+    ScheduleProductionRequest:
+      type: object
+      properties:
+        startDate:
+          type: string
+          example: '2023-09-01'
+        endDate:
+          type: string
+          example: '2023-09-05'
+        shiftDetails:
+          type: string
+          example: Morning
+        operatorId:
+          type: string
+          example: OPR001
+        productionLine:
+          type: string
+          example: Line A
+      required:
+        - startDate
+        - endDate
+        - shiftDetails
+        - operatorId
+        - productionLine
+    StartProductionRequest:
+      type: object
+      properties:
+        machineID:
+          type: string
+          example: M001
+        operatorName:
+          type: string
+          example: Alice
+        startTime:
+          type: string
+          example: '08:00'
+        batchNo:
+          type: string
+          example: B100
+        initialCount:
+          type: string
+          example: '100'
+      required:
+        - machineID
+        - operatorName
+        - startTime
+        - batchNo
+        - initialCount
+    CompleteProductionRequest:
+      type: object
+      properties:
+        endTime:
+          type: string
+          example: '12:00'
+        totalUnits:
+          type: string
+          example: '110'
+        defectsCount:
+          type: string
+          example: '2'
+        qualityReport:
+          type: string
+          example: Pass
+        operatorNote:
+          type: string
+          example: Good work
+      required:
+        - endTime
+        - totalUnits
+        - defectsCount
+        - qualityReport
+        - operatorNote
+    InspectProductRequest:
+      type: object
+      properties:
+        inspectionDate:
+          type: string
+          example: '2023-09-06'
+        inspector:
+          type: string
+          example: InspA
+        batchNo:
+          type: string
+          example: B100
+        defectReport:
+          type: string
+          example: None
+        scoreRating:
+          type: string
+          example: '95'
+      required:
+        - inspectionDate
+        - inspector
+        - batchNo
+        - defectReport
+        - scoreRating
+    PackageClothingRequest:
+      type: object
+      properties:
+        packageID:
+          type: string
+          example: PKG001
+        packagingDate:
+          type: string
+          example: '2023-09-10'
+        boxType:
+          type: string
+          example: BoxA
+        sealStatus:
+          type: string
+          example: Sealed
+        packagedQty:
+          type: string
+          example: '90'
+        comments:
+          type: string
+          example: None
+      required:
+        - packageID
+        - packagingDate
+        - boxType
+        - sealStatus
+        - packagedQty
+        - comments
+    ShipClothingRequest:
+      type: object
+      properties:
+        shipmentNo:
+          type: string
+          example: SHP001
+        shipDate:
+          type: string
+          example: '2023-09-15'
+        trackingNo:
+          type: string
+          example: TRK001
+        destAddress:
+          type: string
+          example: Addr A
+        shippingMode:
+          type: string
+          example: Air
+        carrierName:
+          type: string
+          example: CarrierA
+      required:
+        - shipmentNo
+        - shipDate
+        - trackingNo
+        - destAddress
+        - shippingMode
+        - carrierName
+  parameters:
+    DesignSpecId:
+      name: designSpecID
+      in: path
+      required: true
+      description: The unique identifier for the Design Spec.
+      schema:
+        type: string
+    ProductionOrderId:
+      name: orderNumber
+      in: path
+      required: true
+      description: The unique identifier for the Production Order.
+      schema:
+        type: string
+    MaterialOrderId:
+      name: pONumber
+      in: path
+      required: true
+      description: The unique identifier for the Material Order.
+      schema:
+        type: string
+    ProductionScheduleId:
+      name: scheduleID
+      in: path
+      required: true
+      description: The unique identifier for the Production Schedule.
+      schema:
+        type: string
+    ProductionProcessId:
+      name: processID
+      in: path
+      required: true
+      description: The unique identifier for the Production Process.
+      schema:
+        type: string
+    FinishedProductId:
+      name: finishedProdID
+      in: path
+      required: true
+      description: The unique identifier for the Finished Product.
+      schema:
+        type: string
+    PackagedItemId:
+      name: packageID
+      in: path
+      required: true
+      description: The unique identifier for the Packaged Item.
+      schema:
+        type: string
+    ShipmentId:
+      name: shipmentNo
+      in: path
+      required: true
+      description: The unique identifier for the Shipment.
+      schema:
+        type: string
+  responses:
+    BadRequest:
+      description: 'Bad Request: The server cannot or will not process the request due to something that is perceived to be a client error.'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: 'Not Found: The server can not find the requested resource.'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InternalServerError:
+      description: 'Internal Server Error: The server has encountered a situation it doesn''t know how to handle.'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
